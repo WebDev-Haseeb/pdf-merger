@@ -453,6 +453,109 @@ body {
     transform: translateY(-2px);
 }
 
+/* Custom Notification Styles */
+#notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 350px;
+    width: 100%;
+}
+
+.notification {
+    padding: 15px 20px;
+    border-radius: var(--border-radius);
+    background-color: var(--white);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    animation: slideIn 0.3s ease forwards;
+    overflow: hidden;
+    position: relative;
+    border-left: 5px solid transparent;
+}
+
+.notification.success {
+    border-left-color: var(--success);
+}
+
+.notification.error {
+    border-left-color: var(--danger);
+}
+
+.notification-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    flex: 1;
+}
+
+.notification-icon {
+    font-size: 1.2rem;
+    margin-top: 2px;
+}
+
+.notification.success .notification-icon {
+    color: var(--success);
+}
+
+.notification.error .notification-icon {
+    color: var(--danger);
+}
+
+.notification-message {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-right: 15px;
+    line-height: 1.4;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-light);
+    font-size: 1rem;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.notification-close:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--text-color);
+}
+
+.notification-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--primary-gradient);
+    width: 100%;
+    transform-origin: left;
+    animation: progress 5s linear forwards;
+}
+
+.notification.success .notification-progress {
+    background: linear-gradient(135deg, var(--success) 0%, #2d9300 100%);
+}
+
+.notification.error .notification-progress {
+    background: linear-gradient(135deg, var(--danger) 0%, #c81e1e 100%);
+}
+
 /* Utilities */
 .hidden {
     display: none;
@@ -494,6 +597,37 @@ footer i {
     }
     100% {
         transform: scale(1);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+}
+
+@keyframes progress {
+    from {
+        transform: scaleX(1);
+    }
+    to {
+        transform: scaleX(0);
     }
 }
 

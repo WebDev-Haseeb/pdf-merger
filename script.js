@@ -7,11 +7,13 @@ const mergeBtn = document.getElementById('merge-btn');
 const resetBtn = document.getElementById('reset-btn');
 const resultSection = document.getElementById('result');
 const downloadLink = document.getElementById('download-link');
+const notificationContainer = document.getElementById('notification-container');
 
 // Global variables
 const MAX_FILES = 3;
 let selectedFiles = [];
 let mergedPdfUrl = null;
+let notificationTimeout = null;
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
@@ -288,11 +290,73 @@ function readFileAsArrayBuffer(file) {
     });
 }
 
-// Show notification (uses alert for simplicity)
+// Show custom notification
 function showNotification(message, type) {
-    if (type === 'error') {
-        alert('⚠️ ' + message);
-    } else {
-        alert('✅ ' + message);
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    
+    // Create notification content
+    const notificationContent = document.createElement('div');
+    notificationContent.className = 'notification-content';
+    
+    // Add icon based on notification type
+    const icon = document.createElement('div');
+    icon.className = 'notification-icon';
+    icon.innerHTML = type === 'success' 
+        ? '<i class="fas fa-check-circle"></i>' 
+        : '<i class="fas fa-exclamation-circle"></i>';
+    
+    // Add message
+    const messageElement = document.createElement('div');
+    messageElement.className = 'notification-message';
+    messageElement.textContent = message;
+    
+    // Add close button
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'notification-close';
+    closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+    closeBtn.addEventListener('click', () => removeNotification(notification));
+    
+    // Add progress bar
+    const progressBar = document.createElement('div');
+    progressBar.className = 'notification-progress';
+    
+    // Assemble notification
+    notificationContent.appendChild(icon);
+    notificationContent.appendChild(messageElement);
+    notification.appendChild(notificationContent);
+    notification.appendChild(closeBtn);
+    notification.appendChild(progressBar);
+    
+    // Add to container
+    notificationContainer.appendChild(notification);
+    
+    // Set timeout to remove notification
+    const timeout = setTimeout(() => {
+        removeNotification(notification);
+    }, 5000);
+    
+    // Store timeout ID to allow cancellation
+    notification.dataset.timeoutId = timeout;
+    
+    return notification;
+}
+
+// Remove a notification
+function removeNotification(notification) {
+    // Clear the timeout if it exists
+    if (notification.dataset.timeoutId) {
+        clearTimeout(parseInt(notification.dataset.timeoutId));
     }
+    
+    // Add animation class
+    notification.style.animation = 'slideOut 0.3s forwards';
+    
+    // Remove after animation completes
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.parentElement.removeChild(notification);
+        }
+    }, 300);
 }
