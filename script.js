@@ -21,13 +21,13 @@ let theme = 'light'
 //Handle theme toggle
 toggler.addEventListener('click', () => {
     if (theme == 'light') {
-        toggler.classList.remove('fa-sun')
-        toggler.classList.add('fa-moon')
+        toggler.classList.remove('fa-moon')
+        toggler.classList.add('fa-sun')
         body.classList.add('dark')
         theme = "dark"
     } else {
-        toggler.classList.remove('fa-moon')
-        toggler.classList.add('fa-sun')
+        toggler.classList.remove('fa-sun')
+        toggler.classList.add('fa-moon')
         body.classList.remove("dark")
         theme = "light"
     }
