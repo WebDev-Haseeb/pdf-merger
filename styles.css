@@ -16,6 +16,7 @@
     --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     --transition: all 0.3s ease;
+    --theme-transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease, fill 0.3s ease;
 }
 
 * {
@@ -42,6 +43,30 @@
     color: var(--white);
 }
 
+.dark {
+    --primary-color: #fbbf24;
+    --primary-light: #facc15;
+    --primary-gradient: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    --secondary-color: #f59e0b;
+    --text-color: #edf2f7;
+    --text-light: #e2e8f0;
+    --light-bg: #1a202c;
+    --white: #2d3748;
+    --danger: #e53e3e;
+    --success: #38b000;
+    --border-radius: 10px;
+}
+
+.dark .btn-reset {
+    background-color: #2d3748;
+    color: #edf2f7;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .btn-reset:hover:not(:disabled) {
+    background-color: #4a5568;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--light-bg);
@@ -66,6 +91,15 @@ body {
     background-color: var(--white);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
+}
+
+/* Apply theme transition to all needed elements */
+body, .container, .file-item, .btn-reset, .notification, #toggler, 
+.header h1, .header p, .file-icon, .file-name, .notification-message, 
+.file-prompt i, .file-prompt p, .file-prompt span, #file-drop-area,
+#selected-files-container h3, .notification-close, .move-file, .remove-file, 
+#result, #result h3, footer, .notification-content {
+    transition: var(--theme-transition);
 }
 
 /* Header Styles */
@@ -102,6 +136,42 @@ body {
 .header p {
     color: var(--text-light);
     font-size: 1.1rem;
+}
+
+#toggler {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-light);
+    font-size: 1.7rem;
+    transition: var(--transition);
+    padding: 10px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.03);
+    box-shadow: var(--card-shadow);
+}
+
+#toggler:hover {
+    color: var(--primary-color);
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+.dark #toggler {
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dark #toggler:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* File Drop Area Styles */
@@ -652,6 +722,14 @@ footer i {
     #file-drop-area {
         padding: 30px 20px;
     }
+    
+    #toggler {
+        top: 8px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -685,5 +763,18 @@ footer i {
     
     .file-prompt span {
         width: 100%;
+    }
+    
+    #toggler {
+        top: 20px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+        padding: 8px;
+    }
+    
+    .header {
+        padding-top: 15px;
     }
 }

@@ -8,12 +8,30 @@ const resetBtn = document.getElementById('reset-btn');
 const resultSection = document.getElementById('result');
 const downloadLink = document.getElementById('download-link');
 const notificationContainer = document.getElementById('notification-container');
+const toggler = document.getElementById('toggler');
+const body = document.querySelector("body")
 
 // Global variables
 const MAX_FILES = 3;
 let selectedFiles = [];
 let mergedPdfUrl = null;
 let notificationTimeout = null;
+let theme = 'light'
+
+//Handle theme toggle
+toggler.addEventListener('click', () => {
+    if (theme == 'light') {
+        toggler.classList.remove('fa-sun')
+        toggler.classList.add('fa-moon')
+        body.classList.add('dark')
+        theme = "dark"
+    } else {
+        toggler.classList.remove('fa-moon')
+        toggler.classList.add('fa-sun')
+        body.classList.remove("dark")
+        theme = "light"
+    }
+})
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
